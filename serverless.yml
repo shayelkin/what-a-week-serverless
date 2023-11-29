@@ -1,0 +1,30 @@
+org: shayelkin
+app: what-a-week-serverless
+service: what-a-week-serverless
+
+frameworkVersion: '3'
+
+package:
+  patterns:
+    - '!venv/**'
+
+provider:
+  name: aws
+  runtime: python3.9
+  environment:
+    BSKY_USERNAME: ${param:bskyUsername}
+    BSKY_PASSWORD: ${param:bskyPassword}
+
+functions:
+  cronHandler:
+    handler: handler.run
+    events:
+      - schedule: cron(0 1 * * ? *)
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+  

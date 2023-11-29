@@ -1,0 +1,10 @@
+{
+  "name": "what-a-week-serverless",
+  "version": "0.9.0",
+  "description": "Example of creating a function that runs as a cron job using the serverless `schedule` event",
+  "author": "Shay Elkin",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "serverless-python-requirements": "^6.0.1"
+  }
+}
