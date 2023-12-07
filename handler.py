@@ -41,7 +41,7 @@ def upload_file(pds_url, access_token, mimetype, img_bytes) -> Dict:
     return resp.json()["blob"]
 
 def upload_images(pds_url: str, access_token: str, fd: io.IOBase , alt_text: str) -> Dict[str, str]:
-    fd.seek(0)    
+    fd.seek(0)
     img_bytes = fd.read()
     # this size limit specified in the app.bsky.embed.images lexicon
     assert len(img_bytes) <= 1000000
@@ -107,7 +107,7 @@ def create_image(template: MemeTemplate, text: str) -> io.IOBase:
     logger.info("Wrote image: %d bytes", tf.tell())
 
     return tf
-    
+
 def deserialize_color(color: str) -> tuple:
     res = tuple(int(c.strip()) for c in color.split(',', maxsplit=2))
     assert len(res) == 3
@@ -115,7 +115,7 @@ def deserialize_color(color: str) -> tuple:
 
 def deserialize_meme_template(template: dict, base_path: Optional[str] = "./") -> MemeTemplate:
     return MemeTemplate(
-        image_file=os.path.join(base_path, template["image_file"]),        
+        image_file=os.path.join(base_path, template["image_file"]),
         font_file=os.path.join(base_path, template["font_file"]),
         font_size=template["font_size"],
         top=template["top"],
@@ -131,16 +131,6 @@ def create_meme_image(template_fname: str, text: str) -> io.IOBase:
     with open(template_fname) as f:
         template = deserialize_meme_template(json.load(f), base_path=base_path)
         return create_image(template, text)
-
-def get_username() -> str:
-    username = os.environ.get('BSKY_USERNAME')
-    if not username:
-        raise Exception("BSKY_USERNAME not set")
-
-def get_password() -> str:
-    password = os.environ.get('BSKY_PASSWORD')
-    if not username:
-        raise Exception("BSKY_PASSWORD not set")
 
 def get_env(name: str) -> str:
     val = os.environ.get(name)

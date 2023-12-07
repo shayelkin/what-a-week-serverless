@@ -1,6 +1,6 @@
 org: shayelkin
 app: what-a-week-serverless
-service: what-a-week-serverless
+service: post-to-bsky
 
 frameworkVersion: '3'
 
@@ -11,6 +11,8 @@ package:
 provider:
   name: aws
   runtime: python3.9
+  region: us-west-2
+  architecture: arm64
   environment:
     BSKY_USERNAME: ${param:bskyUsername}
     BSKY_PASSWORD: ${param:bskyPassword}
@@ -27,5 +29,3 @@ plugins:
 custom:
   pythonRequirements:
     dockerizePip: true
-  
-
